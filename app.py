@@ -71,13 +71,14 @@ def main():
         # Label encoding
         input_features = input_features.flatten()
 
-    # Label encoding
+        # Label encoding
         label_encoded_features = []
         for i in range(len(input_features)):
-            if i in [0, 3, 11,12, 13, 14,18, 19, 20, 21, 22,25, 26, 27,29,30]:
+            if i in [0, 3, 11, 12, 13, 14, 18, 19, 20, 21, 22, 25, 26, 27, 29, 30]:
                 # Apply label encoding for relevant features
                 labelencoder = LabelEncoder()
-                label_encoded_features.append(labelencoder.fit_transform([input_features[i]]))
+                encoded_value = labelencoder.fit_transform([str(input_features[i])])  # Ensure the input is a string
+                label_encoded_features.append(encoded_value[0])  # Append the encoded value
             else:
                 # For non-categorical features, keep the value as is
                 label_encoded_features.append(input_features[i])
@@ -85,7 +86,6 @@ def main():
         # Reshape back to original format
         input_features = np.array(label_encoded_features).reshape(1, -1)
 
- 
         # Get the prediction
         prediction = predict_cancellation(input_features)
 
