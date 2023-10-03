@@ -66,9 +66,11 @@ def main():
              reserved_room_type, assigned_room_type, booking_changes, deposit_type, agent,
              company, days_in_waiting_list, customer_type, adr, required_car_parking_spaces,
              total_of_special_requests, reservation_status, reservation_status_date]
-        ])
+        ], dtype=object)
 
         # Label encoding
+        st.write("input_feature shpae before flatten",input_features.shape)
+
         input_features = input_features.flatten()
 
     # Label encoding
@@ -83,7 +85,11 @@ def main():
                 label_encoded_features.append(input_features[i])
 
         # Reshape back to original format
+        st.write("input_feature before reshaping",input_features.shape)
+
         input_features = np.array(label_encoded_features).reshape(1, -1)
+        st.write("input_feature shpae after flatten",input_features.shape)
+       
 
  
         # Get the prediction
