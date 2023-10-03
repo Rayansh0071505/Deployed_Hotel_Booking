@@ -57,42 +57,36 @@ def main():
 
     # When the user clicks the "Predict" button
     if st.button("Predict"):
-        # Prepare the input features as a numpy array
-        input_features = np.array([
-            [hotel, lead_time, arrival_date_year, arrival_date_month, arrival_date_week_number, 
-             arrival_date_day_of_month, stays_in_weekend_nights, stays_in_week_nights, 
-             adults, children, babies, meal, country, market_segment, distribution_channel, 
-             is_repeated_guest, previous_cancellations, previous_bookings_not_canceled,
-             reserved_room_type, assigned_room_type, booking_changes, deposit_type, agent,
-             company, days_in_waiting_list, customer_type, adr, required_car_parking_spaces,
-             total_of_special_requests, reservation_status, reservation_status_date]
-        ], dtype=object)
+    # Prepare the input features as a numpy array
+        input_features = [
+            [hotel, lead_time, arrival_date_year, arrival_date_month, arrival_date_week_number,
+            arrival_date_day_of_month, stays_in_weekend_nights, stays_in_week_nights,
+            adults, children, babies, meal, country, market_segment, distribution_channel,
+            is_repeated_guest, previous_cancellations, previous_bookings_not_canceled,
+            reserved_room_type, assigned_room_type, booking_changes, deposit_type, agent,
+            company, days_in_waiting_list, customer_type, adr, required_car_parking_spaces,
+            total_of_special_requests, reservation_status, reservation_status_date]
+        ]
 
         # Label encoding
-        # st.write("input_feature shpae before flatten",input_features.shape)
-
-        input_features = input_features.flatten()
-
-    # Label encoding
         label_encoded_features = []
-        for i in range(len(input_features)):
-            if i in [0, 3, 11,12, 13, 14,18, 19, 20, 21, 22,25, 26, 27,29,30]:
+        for i in range(len(input_features[0])):
+            if i in [0, 3, 11, 12, 13, 14, 18, 19, 20, 21, 22, 25, 26, 27, 29, 30]:
                 # Apply label encoding for relevant features
                 labelencoder = LabelEncoder()
-                label_encoded_features.append(labelencoder.fit_transform([input_features[i]]))
+                # Ensure input_features[i] is iterable
+                if isinstance(input_features[0][i], (list, tuple)):
+                    label_encoded_features.append([labelencoder.fit_transform(input_features[0][i])])
+                else:
+                    label_encoded_features.append(labelencoder.fit_transform([input_features[0][i]]))
             else:
                 # For non-categorical features, keep the value as is
-                label_encoded_features.append(input_features[i])
+                label_encoded_features.append([input_features[0][i]])
 
         # Reshape back to original format
-        # st.write("input_feature before reshaping",input_features.shape)
-        input_features = np.array(label_encoded_features)
+        flattened_features = [item for sublist in label_encoded_features for item in sublist]
+        input_features = np.array(flattened_features).reshape(1, -1)
 
-        input_features = np.array(label_encoded_features).reshape(1, -1)
-        # st.write("input_feature shpae after flatten",input_features.shape)
-       
-
- 
         # Get the prediction
         prediction = predict_cancellation(input_features)
 
