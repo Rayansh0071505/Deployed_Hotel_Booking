@@ -19,7 +19,7 @@ def main():
     # Collect user input for prediction
     hotel = st.selectbox("Hotel", ["City Hotel", "Resort Hotel"])
     lead_time = st.slider("Lead Time (days)", 0, 365, 30)
-    arrival_date_year = st.selectbox("Arrival Date Year", [2015, 2016, 2017, 2018])
+    arrival_date_year = st.selectbox("Arrival Date Year", [2015, 2016, 2017, 2018,2019,2020,2021,2022,2023,2024])
     arrival_date_month = st.selectbox("Arrival Date Month", ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'])
     arrival_date_week_number = st.slider("Arrival Date Week Number", 1, 53, 27)
     arrival_date_day_of_month = st.slider("Arrival Date Day of Month", 1, 31, 15)
