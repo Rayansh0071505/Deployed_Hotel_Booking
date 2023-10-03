@@ -50,6 +50,7 @@ def main():
     days_in_waiting_list = st.slider("Days in Waiting List", 0, 391, 0)
     customer_type = st.selectbox("Customer Type", ["Transient", "Contract", "Transient-Party", "Group"])
     adr = st.slider("ADR", 0.0, 5400.0, 100.0)
+    st.write('ADR : Average Daily Rate ')
     required_car_parking_spaces = st.slider("Required Car Parking Spaces", 0, 8, 0)
     total_of_special_requests = st.slider("Total Special Requests", 0, 5, 0)
     reservation_status = st.selectbox("Reservation Status", ["Canceled", "Check-Out", "No-Show"])
