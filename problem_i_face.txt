@@ -1,0 +1,16 @@
+1) while deploying the model , you have to train the model in latest dependencies as deploying websites/server like render,streamlit
+   works on latest version for me i stuck in numpy i.e
+
+   """ error 
+    input_features = np.array(label_encoded_features).reshape(1, -1)
+ValueError: setting an array element with a sequence. 
+The requested array has an inhomogeneous shape after 1 dimensions. The detected shape was (31,) + inhomogeneous part.
+
+as i was using numpy old version while render using latest version so this thing was first problem
+as numpy cant work on inhomogeneous parts i.e if a list contain number it all should be same datatype, it cant contain object, int, and 
+other datatype together so 
+
+solution
+so first i install latest numpy dependencies
+then i take all input as dtype = object then later on for pridiction i convert whole as integer
+i.e                 encoded_value = labelencoder.fit_transform([str(input_features[i])])  # Ensure the input is a string
